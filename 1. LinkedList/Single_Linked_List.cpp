@@ -12,7 +12,7 @@ typedef struct List_Node
 	struct List_Node* next;	//指向直接后继元素的指针
 }List_Node, *LinkedList;//List_Node表示结点的类型，LinkedList表示指向List_Node结点类型的指针类型
 
-//输出链表
+//输出链表，从链表的头开始，逐步向后遍历每一个元素；可以衍生出很多常用的数据操作，比如查找元素，修改元素，获取元素个数，打印整个链表数据等
 void display(LinkedList list)
 {
 	List_Node* p = list->next;
@@ -25,9 +25,9 @@ void display(LinkedList list)
 }
 
 //链表内容的修改，再链表中修改值为x的元素变为为k。
-LinkedList LinkedListReplace(LinkedList L,int x,int k) 
+LinkedList linked_list_replace(LinkedList List, int x, int k) 
 {
-    Node *p = L->next;
+    Node *p = List->next;
     int i = 0;
     while(p)
 	{
@@ -38,7 +38,27 @@ LinkedList LinkedListReplace(LinkedList L,int x,int k)
         p = p->next;
     }
 	
-    return L;
+    return List;
+}
+
+//插入操作是指在链表的第i个位置增加结点，将i位置的next指针修改为指向新创建的结点，新创建结点的next指向i+1位置的结点。
+//其操作方式可以设置一个前驱结点，利用循环找到i位置，再进行插入
+LinkedList linked_list_insert(LinkedList List, int i, int elem)
+{
+	List_Node* pre = NULL;					//前驱结点
+	pre = List;
+	
+	for (int cnt = 1; cnt < i; ++cnt)
+	{
+		pre = pre->next;			//找到第i位置的前驱结点
+	}
+	
+	List_Node* p = (List_Node*)malloc(sizeof(List_Node));//插入结点p
+	p->data = elem;
+	p->next = pre->next;
+	pre->next = p;
+	
+	return List;
 }
 
 //初始化链表
