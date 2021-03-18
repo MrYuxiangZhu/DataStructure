@@ -17,6 +17,7 @@ void display(LinkedList list)
 {
 	List_Node* p = list->next;
 	int count = 0;
+	
 	while (p)
 	{
 		cout << "第" << ++count << "个元素的值为: " << p->data << endl;
