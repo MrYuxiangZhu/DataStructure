@@ -24,6 +24,23 @@ void display(LinkedList list)
 	}
 }
 
+//链表内容的修改，再链表中修改值为x的元素变为为k。
+LinkedList LinkedListReplace(LinkedList L,int x,int k) 
+{
+    Node *p = L->next;
+    int i = 0;
+    while(p)
+	{
+        if (p->data == x)
+		{
+            p->data = k;
+        }
+        p = p->next;
+    }
+	
+    return L;
+}
+
 //初始化链表
 LinkedList init_list()
 {
