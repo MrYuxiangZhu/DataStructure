@@ -2,8 +2,7 @@
 //
 
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+
 using namespace std;
 
 //定义结点类型
@@ -41,13 +40,17 @@ LinkedList create_linked_list_by_head()
 	}
 
 	head->next = NULL;
-	while (cin.get() != '\n')
+	while (cin >> elem)
 	{
-		cin >> elem;
 		List_Node* temp = (List_Node*)malloc(sizeof(List_Node)); //创建新的结点
 		temp->data = elem;		//结点内容赋值
 		temp->next = head->next;	//将结点插入表头head-->|2|-->|1|-->NULL
 		head->next = temp;
+
+		if (cin.get() == '\n')
+		{
+			break;
+		}
 	}
 
 	return head;
@@ -61,13 +64,17 @@ LinkedList create_linked_list_by_tail()
 	List_Node* tail = NULL;
 	head->next = NULL;
 	tail = head;			//指向末尾结点
-	while (cin.get() != '\n')
+	while (cin >> elem)
 	{
-		cin >> elem;
 		List_Node* temp = (List_Node*)malloc(sizeof(List_Node));
 		temp->data = elem;		//结点内容赋值
 		tail->next = temp;		//将结点插入表头head-->|1|-->|2|-->NULL
 		tail = temp;			//表尾重新赋值
+
+		if (cin.get() == '\n')
+		{
+			break;
+		}
 	}
 
 	tail->next = NULL;
@@ -107,8 +114,15 @@ LinkedList linked_list_delete(LinkedList List, int elem)
 		p = p->next;
 	}
 
-	pre->next = p->next;	//删除操作，将其前驱next指向其后继
-	free(p);
+	if (p->data == elem)
+	{ 
+		pre->next = p->next;	//删除操作，将其前驱next指向其后继
+		free(p);
+	}
+	else
+	{
+		cout << "未找到该元素" << endl;
+	}
 
 	return List;
 }
@@ -147,7 +161,7 @@ int main()
 {
 	LinkedList list = NULL;
 	cout << "请输入单链表数据，以回车结尾" << endl;
-	list = create_linked_list_by_head();
+	list = create_linked_list_by_tail();
 	display(list);
 
 	//插入元素
