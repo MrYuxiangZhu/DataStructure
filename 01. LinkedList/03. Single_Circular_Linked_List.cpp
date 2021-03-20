@@ -3,7 +3,17 @@
 
 #include <iostream>
 
+using namespace std;
+
+#define ElemType	int
+
+typedef struct List_Node
+{
+	ElemType data;			//链表数据
+	struct List_Node* next;	//指向下一个结点
+}List_Node, * LinkedList;
+
 int main()
 {
-    std::cout << "Hello World!\n"; 
+     
 }
