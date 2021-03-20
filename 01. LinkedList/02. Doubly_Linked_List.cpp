@@ -94,7 +94,8 @@ LinkedList linked_list_insert(List_Node* head, ElemType elem, int pos)
 }
 
 //选择需要删除的结点，选中该结点的前一个结点，将前一个结点的next指针指向该结点的下一个结点
-//该结点的下一个结点的pre指针指向该结点的上一个结点
+//若该结点的next指针为NULL，则将前一个结点的next指针为NULL
+//若该结点的next指针不为NULL，该结点的下一个结点的pre指针指向该结点的上一个结点
 //释放该结点的内存空间
 LinkedList linked_list_delete(List_Node* head, ElemType elem)
 {
