@@ -93,7 +93,44 @@ LinkedList linked_list_insert(List_Node* head, ElemType elem, int pos)
 	return head;
 }
 
-//遍历双链表,同时打印元素数据
+//选择需要删除的结点，选中该结点的前一个结点，将前一个结点的next指针指向该结点的下一个结点
+//该结点的下一个结点的pre指针指向该结点的上一个结点
+//释放该结点的内存空间
+LinkedList linked_list_delete(List_Node* head, ElemType elem)
+{
+	List_Node* List = head;
+	while (List)
+	{
+		//判断结点数据是否与此元素相等
+		//将该结点的上一个结点next指针指向该结点下一个结点
+		//将该结点的下一个结点pre指针指向该结点的上一个结点
+		if (elem == List->data)
+		{
+			if (NULL == List->next)
+			{
+				List->pre->next = List->next;
+			}
+			else
+			{ 
+				List->pre->next = List->next;
+				List->next->pre = List->pre;
+			}
+
+			free(List);
+			cout << "删除成功!" << endl;
+			return head;
+		}
+
+		List = List->next;
+	}
+
+	cout << "没有找到该元素，删除失败!" << endl;
+
+	return head;
+}
+
+//如同单链表的遍历一样，利用next指针逐步向后进行索引即可，注意判断这里，我们既可以用while(list)的操作直接判断是否链表为空，也可以使用while(list->next)的操作判断该链表是否为空，
+//其下一节点为空和本结点是否为空的判断条件是一样的效果。
 void display(List_Node* head)
 {
 	List_Node* List = head;
@@ -118,6 +155,11 @@ int main()
 	cout << "请输入第" << pos << "个数据" << endl;
 	cin >> input;
 	list = linked_list_insert(list, input, pos);
+	display(list);
+
+	cout << "请输入需要删除的数据" << endl;
+	cin >> input;
+	list = linked_list_delete(list, input);
 	display(list);
 
 	return 0;
