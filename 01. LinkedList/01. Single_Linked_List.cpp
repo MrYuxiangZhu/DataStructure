@@ -5,12 +5,14 @@
 
 using namespace std;
 
+#define ElemType	int
+
 //定义结点类型
 typedef struct List_Node
 {
-	int data;	//数据类型
+	ElemType data;			//数据类型
 	struct List_Node* next;	//指向直接后继元素的指针
-}List_Node, * LinkedList;//List_Node表示结点的类型，LinkedList表示指向List_Node结点类型的指针类型
+}List_Node, * LinkedList;	//List_Node表示结点的类型，LinkedList表示指向List_Node结点类型的指针类型
 
 //初始化链表
 LinkedList linked_list_init()
@@ -31,7 +33,7 @@ LinkedList linked_list_init()
 //头插法建立单链表
 LinkedList create_linked_list_by_head()
 {
-	int elem = 0;
+	ElemType elem = 0;
 	List_Node* head = (List_Node*)malloc(sizeof(List_Node));	//创建新的空间
 	if (NULL == head)
 	{
@@ -59,7 +61,7 @@ LinkedList create_linked_list_by_head()
 //尾插法建立单链表
 LinkedList create_linked_list_by_tail()
 {
-	int elem = 0;
+	ElemType elem = 0;
 	List_Node* head = (List_Node*)malloc(sizeof(List_Node));	//创建新的空间
 	List_Node* tail = NULL;
 	head->next = NULL;
@@ -84,7 +86,7 @@ LinkedList create_linked_list_by_tail()
 
 //插入操作是指在链表的第i个位置增加结点，将i位置的next指针修改为指向新创建的结点，新创建结点的next指向i+1位置的结点。
 //其操作方式可以设置一个前驱结点，利用循环找到i位置，再进行插入
-LinkedList linked_list_insert(LinkedList List, int i, int elem)
+LinkedList linked_list_insert(LinkedList List, int i, ElemType elem)
 {
 	List_Node* pre = NULL;					//前驱结点
 	pre = List;
@@ -103,7 +105,7 @@ LinkedList linked_list_insert(LinkedList List, int i, int elem)
 }
 
 //从单链表中删除值为x的结点
-LinkedList linked_list_delete(LinkedList List, int elem)
+LinkedList linked_list_delete(LinkedList List, ElemType elem)
 {
 	List_Node* p = NULL;	//p为查找的结点
 	List_Node* pre = NULL;	//pre为前驱结点
@@ -128,10 +130,9 @@ LinkedList linked_list_delete(LinkedList List, int elem)
 }
 
 //链表内容的修改，再链表中修改值为x的元素变为k。
-LinkedList linked_list_replace(LinkedList List, int x, int k)
+LinkedList linked_list_replace(LinkedList List, ElemType x, ElemType k)
 {
 	List_Node* p = List->next;
-	int i = 0;
 	while (p)
 	{
 		if (p->data == x)
