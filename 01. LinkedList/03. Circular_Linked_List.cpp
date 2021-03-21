@@ -62,6 +62,64 @@ LinkedList linked_list_create(List_Node* head)
 	return head;
 }
 
+//插入新结点时，首先创建新结点并分配内存空间，新结点的next指针指向插入位置的下一个结点
+//插入位置的上一个结点next指针指向新结点
+LinkedList linked_list_insert(List_Node* head, ElemType elem, int pos)
+{
+	if (NULL == head) { return NULL; }
+	List_Node* List = head;
+	for (int cnt = 1; cnt < pos - 1; ++cnt)
+	{
+		List = List->next;
+	}
+
+	List_Node* body = (List_Node*)malloc(sizeof(List_Node));
+	body->data = elem;
+	body->next = List->next;
+	List->next = body;
+
+	return head;
+}
+
+//找到与elem元素相等的结点，该位置的上一个结点的next指针指向该结点的下一个结点
+//释放该位置结点内存
+LinkedList linked_list_delete(List_Node* head, ElemType elem)
+{
+	if (NULL == head) { return NULL; }
+	List_Node* Pre = head;
+	List_Node* List = head->next;
+	while (List != head)
+	{
+		if (List->data == elem)
+		{
+			Pre->next = List->next;
+			free(List);
+			cout << "删除结点成功！" << endl;
+			break;
+		}
+
+		Pre = Pre->next;
+		List = List->next;
+	}
+
+	//判断头结点
+	if (List == head)
+	{
+		if (List->data == elem)
+		{
+			head = List->next;
+			Pre->next = head;
+			free(List);
+			cout << "删除结点成功！" << endl;
+		}
+		else
+		{
+			cout << "删除结点失败，未找到元素！" << endl;
+		}
+	}
+
+	return head;
+}
 
 //当前结点为头结点时结束
 void display(List_Node* head)
@@ -79,8 +137,20 @@ void display(List_Node* head)
 
 int main()
 {
+	ElemType elem = 0;	//插入的数据类型
+	int pos = 0;	//链表长度
 	List_Node* list = NULL;
 	list = linked_list_create(list);
+	display(list);
+	cout << "请输入需要插入的位置" << endl;
+	cin >> pos;
+	cout << "请输入需要插入的元素" << endl;
+	cin >> elem;
+	list = linked_list_insert(list, elem, pos);
+	display(list);
+	cout << "请输入需要删除的元素" << endl;
+	cin >> elem;
+	list = linked_list_delete(list, elem);
 	display(list);
 	return 0;
 }
