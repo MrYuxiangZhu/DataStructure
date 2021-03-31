@@ -53,7 +53,58 @@ StackLinkedList push_stack(Stack* sta, ElemType elem)
 	return sta;
 }
 
+//出栈
+StackLinkedList pop_stack(Stack* sta)
+{
+	if (NULL == sta->top) 
+	{
+		cout << "栈错误!" << endl;
+		return NULL; 
+	}
+
+	ListNode* ptr = NULL;
+	ptr = sta->top;
+	cout << "pop : " << ptr->data << endl;
+	sta->top = sta->top->next;
+	free(ptr);
+	sta->count--;
+
+	return sta;
+}
+
+//遍历栈，输出栈的所有元素
+void show_stack(Stack* sta)
+{
+	if (NULL == sta->top)
+	{
+		cout << "栈错误!" << endl;
+		return;
+	}
+
+	ListNode* ptr = NULL;
+	ptr = sta->top;
+
+	while (ptr != NULL)
+	{
+		cout << ptr->data << endl;
+		ptr = ptr->next;
+	}
+}
+
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	Stack* sta = NULL;
+	sta = stack_linked_list_create();
+	int n = 5;
+	int input[6] = {10, 20, 30, 40, 50, 60};
+	for (int i = 0; i < 5; ++i)
+	{
+		push_stack(sta, input[i]);
+	}
+
+	show_stack(sta);
+	pop_stack(sta);
+	show_stack(sta);
+
+	return 0;
 }
