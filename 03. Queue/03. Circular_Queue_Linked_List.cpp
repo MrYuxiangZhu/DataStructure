@@ -50,8 +50,8 @@ void push_queue(Circular_Queue_List* queue, int data)
 	}
 	
 	cout << "入队元素为：" << data << endl;
-	queue->data[queue->rear] = data;
 	queue->rear = (queue->rear + 1) % MAXSIZE;
+	queue->data[queue->rear] = data;
 }
 
 //出队操作直接将front进行后移一位，当队列为空的时候无法进行出队操作
@@ -63,8 +63,8 @@ void pop_queue(Circular_Queue_List* queue)
 		return;
 	}
 
-	cout << "出队元素为：" << queue->data[queue->front] << endl;
 	queue->front = (queue->front + 1) % MAXSIZE;
+	cout << "出队元素为：" << queue->data[queue->front] << endl;
 }
 
 //遍历队列
@@ -74,8 +74,8 @@ void display(Circular_Queue_List* queue)
 	cout << "队列所有元素为：";
 	while (count != queue->rear)
 	{
-		cout << queue->data[count] << " ";
 		count = (count + 1) % MAXSIZE;
+		cout << queue->data[count] << " ";
 	}
 
 	cout << endl;
@@ -98,6 +98,7 @@ int main()
 
 	display(queue);
 
+	pop_queue(queue);
 	pop_queue(queue);
 
 	display(queue);
