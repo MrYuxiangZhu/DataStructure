@@ -12,6 +12,7 @@ typedef struct
 	int data[MAXSIZE];
 	int rear;
 	int front;
+	int top;		//指向顶部
 }Circular_Queue_List;
 
 //对于顺序队列而言，存在一些缺陷和不足，例如当入队和出队操作均是直接进行结点的链接和删除，这必然造成使用空间向出队的那一边偏移，
@@ -30,28 +31,29 @@ Circular_Queue_List* circular_queue_linked_list_init()
 
 	queue->front = 0;
 	queue->rear = 0;
-
+	queue->top = 0;
 	return queue;
 }
 
 //判断队列是否为空，就是front == rear，说明队列无元素
 bool empty(Circular_Queue_List* queue)
 {
-	return queue->front == queue->rear ? true : false;
+	return (0 == queue->top) ? true : false;
 }
 
 //入队操作时，直接将rear向后移动。如果rear达到队列的空间最大值，将要从头继续开始移动，这里使用余数法
 void push_queue(Circular_Queue_List* queue, int data)
 {
-	if ((queue->rear + 1) % MAXSIZE == queue->front)
+	if (MAXSIZE == queue->top)
 	{
 		cout << "队列已满！" << endl;
 		return;
 	}
 	
 	cout << "入队元素为：" << data << endl;
-	queue->rear = (queue->rear + 1) % MAXSIZE;
 	queue->data[queue->rear] = data;
+	queue->rear = (queue->rear + 1) % MAXSIZE;
+	queue->top++;
 }
 
 //出队操作直接将front进行后移一位，当队列为空的时候无法进行出队操作
@@ -62,9 +64,9 @@ void pop_queue(Circular_Queue_List* queue)
 		cout << "队列为空，无法出队" << endl;
 		return;
 	}
-
-	queue->front = (queue->front + 1) % MAXSIZE;
 	cout << "出队元素为：" << queue->data[queue->front] << endl;
+	queue->front = (queue->front + 1) % MAXSIZE;
+	queue->top--;
 }
 
 //遍历队列
@@ -74,8 +76,8 @@ void display(Circular_Queue_List* queue)
 	cout << "队列所有元素为：";
 	while (count != queue->rear)
 	{
-		count = (count + 1) % MAXSIZE;
 		cout << queue->data[count] << " ";
+		count = (count + 1) % MAXSIZE;
 	}
 
 	cout << endl;
