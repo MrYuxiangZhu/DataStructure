@@ -52,19 +52,20 @@ Queue_Linked_List queue_linked_list_init()
 	return queue;
 }
 
-//判断队列是否为空是比较常用的操作，如果堆头指针与队尾指针相等，则队列为空；反之队列不为空
+//判断队列是否为空是比较常用的操作，如果front为NULL，则为空
 bool empty(Queue_List* queue)
 {
-	return queue->front == queue->rear ? true : false;
+	return NULL == queue->front ? true : false;
 }
 
 //入队操作时，首先判断一下队列是否为空，如果队列为空，则需要将队头指针和队尾指针都指向第一个结点
 //如果队列不为空，则需要将尾结点向后移动，通过不断移动next指针指向新的结点构成新的队列即可。
-void push(Queue_List* queue, ElemType data)
+void push_queue(Queue_List* queue, ElemType data)
 {
 	Queue_Node* node = queue_node_init();
 	node->data = data;
 	node->next = NULL;
+	cout << "入队元素为：" << data << endl;
 	//采用尾插法
 	if (true == empty(queue))
 	{
@@ -78,7 +79,72 @@ void push(Queue_List* queue, ElemType data)
 	}
 }
 
+//数据元素需要出队按照“先进先出”的原则，需将存储该数据的结点以及它之前入队的元素结点按照原则出队即可。
+void pop_queue(Queue_List* queue)
+{
+	Queue_Node* node = queue->front;
+	if (true == empty(queue))
+	{
+		cout << "queue is empty!" << endl;
+ 		return;			//队列为空，直接返回
+	}
+
+	cout << "出队元素为：" << node->data << endl;
+
+	if (queue->front == queue->rear)
+	{
+		queue->front = NULL;	//只有一个元素时直接将两端指向空指针
+		queue->rear = NULL;
+		free(node);
+	}
+	else
+	{
+		queue->front = queue->front->next;
+		free(node);
+	}
+}
+
+//遍历队列所有元素
+void display(Queue_List* queue)
+{
+	Queue_Node* node = queue->front;
+	if (true == empty(queue))
+	{
+		cout << "queue is empty!" << endl;
+		return;			//队列为空，直接返回
+	}
+
+	cout << "队列为: ";
+
+	while (NULL != node)
+	{
+		cout << node->data << " ";
+		node = node->next;
+	}
+
+	cout << endl;
+}
+
 int main()
 {
-    
+	Queue_List* queue_list = queue_linked_list_init();
+	int length = 0;
+	ElemType input = 0;
+	cout << "请输入队列长度" << endl;
+	cin >> length;
+	cout << "请输入队列元素" << endl;
+	while (length--)
+	{
+		cin >> input;
+		push_queue(queue_list, input);
+	}
+
+	display(queue_list);
+
+	pop_queue(queue_list);
+	pop_queue(queue_list);
+
+	display(queue_list);
+
+	return 0;
 }
