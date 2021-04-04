@@ -114,7 +114,7 @@ void display(Queue_List* queue)
 		return;			//队列为空，直接返回
 	}
 
-	cout << "队列为: ";
+	cout << "队列为：";
 
 	while (NULL != node)
 	{
