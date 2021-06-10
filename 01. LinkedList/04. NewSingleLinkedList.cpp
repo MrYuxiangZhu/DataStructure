@@ -1,4 +1,4 @@
-#include "LinkList.h"
+#include "NewSingleLinkedList.h"
 
 using namespace std;
 
