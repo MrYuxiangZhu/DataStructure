@@ -1,11 +1,12 @@
+#include <iostream>
 #include "NewSingleLinkedList.h"
 
 using namespace std;
 
 //O(1)
-LinkList* LinkList_Create()
+SingleLinkedList* SingleLinkedListCreate()
 {
-	TLinkList* tlist = (TLinkList*)malloc(sizeof(TLinkList));
+	LinkedList* tlist = (LinkedList*)malloc(sizeof(LinkedList));
 	if (nullptr == tlist)
 	{
 		cout << "创建链表失败" << endl;
@@ -14,107 +15,116 @@ LinkList* LinkList_Create()
 
 	tlist->length = 0;
 	tlist->header.next = nullptr;
+	
 	return tlist;
 }
 
 //O(1)
-void List_Destroy(LinkList* list)
+int SingleLinkedListDestroy(SingleLinkedList* slist)
 {
-	if (nullptr == list)
-	{
-		return;
-	}
+	free(slist);
 
-	free(list);
+	return 0;
 }
 
 //O(1)
-void LinkList_Clear(LinkList* list)
+int SingleLinkedListClear(SingleLinkedList* slist)
 {
-	TLinkList* tlist = (TLinkList*)list;
+	LinkedList* tlist = (LinkedList*)slist;
+
 	if (nullptr == tlist)
 	{
-		return;
+		cout << "空链表" << endl;
+		return ERROR;
 	}
 
 	tlist->length = 0;
 	tlist->header.next = nullptr;
+
+	return 0;
 }
 
 //O(1)
-int LinkList_Length(LinkList* list)
+int GetSingleLinkedListLength(SingleLinkedList* slist)
 {
-	TLinkList* tlist = (TLinkList*)list;
+	LinkedList* tlist = (LinkedList*)slist;
+
 	if (nullptr == tlist)
 	{
-		return -1;
+		cout << "空链表" << endl;
+		return ERROR;
 	}
 
 	return tlist->length;
 }
 
-//从头结点之后插入
 //O(n)
-int LinkList_Insert(LinkList* list, LinkListNode* node, int pos)
+int SingleLinkedListInsert(SingleLinkedList* slist, SingleLinkedListNode* node, int pos)
 {
-	if (nullptr == list || nullptr == node || pos < 0)
+	if (nullptr == slist || nullptr == node || pos <= 0)
 	{
-		return -1;
+		cout << "输入参数错误" << endl;
+		return ERROR;
 	}
 
-	TLinkList* tlist = (TLinkList*)list;	//原链表
-	LinkListNode* clist = &tlist->header; //当前结点
-
-	for (int i = 0; (i < pos) && (nullptr != clist); ++i)
+	LinkedList* tlist = (LinkedList*)slist;
+	LinkedListNode* plist = (LinkedListNode*)node;
+	LinkedListNode* clist = &tlist->header;//头结点
+	
+	for (int i = 1; (i < pos) && (nullptr != clist); ++i)
 	{
-		clist = clist->next;
+		clist = clist->next;//向下一个结点移动
 	}
 
-	node->next = clist->next;//1
-	clist->next = node; //2
+	plist->next = clist->next;
+	clist->next = plist;
 	tlist->length++;
 
 	return 0;
 }
 
 //O(n)
-LinkListNode* LinkList_Get(LinkList* list, int pos)
+SingleLinkedListNode* GetSingleLinkedList(SingleLinkedList* slist, int pos)
 {
-	if (nullptr == list || pos < 0)
+	LinkedList* tlist = (LinkedList*)slist;
+
+	if (nullptr == tlist || pos <= 0 || pos > tlist->length)
 	{
+		cout << "输入参数错误" << endl;
 		return nullptr;
 	}
+	
+	LinkedListNode* clist = &tlist->header;
 
-	TLinkList* tlist = (TLinkList*)list;
-	LinkListNode* clist = &tlist->header;
-
-	for (int i = 0; i < pos; ++i)
+	for (int i = 1; (i < pos) && (nullptr != clist); ++i)
 	{
-		clist = clist->next;
+		clist = clist->next;//向下一个结点移动
 	}
 
 	return clist->next;
 }
 
 //O(n)
-LinkListNode* LinkList_Delete(LinkList* list, int pos)
+SingleLinkedListNode* SingleLinkedListDelete(SingleLinkedList* slist, int pos)
 {
-	TLinkList* tlist = (TLinkList*)list;
+	LinkedList* tlist = (LinkedList*)slist;
 
-	if (nullptr == list || pos < 0 || tlist->length < 0)
+	if (nullptr == tlist || pos <= 0 || pos > tlist->length)
 	{
+		cout << "输入参数错误" << endl;
 		return nullptr;
 	}
-	
-	LinkListNode* clist = &tlist->header;
-	LinkListNode* temp = nullptr;
-	for (int i = 0; i < pos; ++i)
-	{
-		clist = clist->next;
-	}
-	temp = clist->next;
-	clist->next = clist->next->next;
-	tlist->length--;
 
-	return temp;//返回要删除的结点
+	LinkedListNode* clist = &tlist->header;//指向头结点
+	LinkedListNode* plist = nullptr;
+	for (int i = 1; i < pos; ++i)
+	{
+		clist = clist->next;	//向下一个结点移动
+	}
+
+	plist = clist->next;		//需要删除的结点
+	clist->next = plist->next;	//需要删除的结点指向的下一个结点
+	tlist->length--;			//链表长度减一
+
+	return plist;
 }

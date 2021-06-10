@@ -1,29 +1,33 @@
 #pragma once
-#include <iostream>
 
-typedef void LinkList;	//定义void类型
+#define ERROR (-1)
 
-typedef struct _LinkListNode
+typedef void SingleLinkedList;		//单链表
+typedef void SingleLinkedListNode;	//链表结点
+
+typedef struct _LinkedListNode
 {
-	struct _LinkListNode* next;
-}LinkListNode;
+	struct _LinkedListNode* next;	//指向指向下一个结点
+}LinkedListNode;
 
-typedef struct _TLinkList
+typedef struct _LinkedList
 {
-	LinkListNode header;
-	int	 length;
-}TLinkList;
+	LinkedListNode header;	//头结点
+	int length;
+}LinkedList;
 
-LinkList* LinkList_Create();
+SingleLinkedList* SingleLinkedListCreate();
 
-void List_Destroy(LinkList* list);
+int SingleLinkedListDestroy(SingleLinkedList* slist);
 
-void LinkList_Clear(LinkList* list);
+int SingleLinkedListClear(SingleLinkedList* slist);
 
-int LinkList_Length(LinkList* list);
+int GetSingleLinkedListLength(SingleLinkedList* slist);
 
-int LinkList_Insert(LinkList* list, LinkListNode* node, int pos);
+int SingleLinkedListInsert(SingleLinkedList* slist, SingleLinkedListNode* node, int pos);
 
-LinkListNode* LinkList_Get(LinkList* list, int pos);
+SingleLinkedListNode* GetSingleLinkedList(SingleLinkedList* slist, int pos);
 
-LinkListNode* LinkList_Delete(LinkList* list, int pos);
+SingleLinkedListNode* SingleLinkedListDelete(SingleLinkedList* slist, int pos);
+
+
