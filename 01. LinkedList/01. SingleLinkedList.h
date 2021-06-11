@@ -15,6 +15,10 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem);//Õ∑≤Â∑®Ω®¡
 
 LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem);  //Œ≤≤Â∑®Ω®¡¢µ•¡¥±Ì
 
+LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos);//≤Â»ÎΩ·µ„
+
+LinkedList GetLinkedList(LinkedList slist, int pos);//ªÒ»°Ω·µ„
+
 LinkedList LinkedListDelete(LinkedList slist, ElemType elem);		//…æ≥˝¡¥±ÌΩ·µ„
 
 int GetLinkedListLength(LinkedList slist);	//ªÒ»°¡¥±Ì≥§∂»

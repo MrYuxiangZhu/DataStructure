@@ -45,9 +45,19 @@ int main()
 	slist2 = LinkedListDelete(slist2, array[2]);
 	slist2 = LinkedListDelete(slist2, array[3]);
 
-	slist2 = LinkedListCreateByTail(slist2, array[2]);
-	slist2 = LinkedListCreateByTail(slist2, array[3]);
+	display(slist2);
+
+	cout << "插入元素" << endl;
+
+	slist2 = LinkedListInsert(slist2, array[2], 2);
+	slist2 = LinkedListInsert(slist2, array[2], 4);
+	slist2 = LinkedListInsert(slist2, array[3], 6);
 
 	display(slist2);
+
+	cout << "第 5 个元素为：" << GetLinkedList(slist2, 5)->data << endl;
+	cout << "第 6 个元素为：" << GetLinkedList(slist2, 6)->data << endl;
+	cout << "第 7 个元素为：" << GetLinkedList(slist2, 7)->data << endl;
+
 	return 0;
 }
