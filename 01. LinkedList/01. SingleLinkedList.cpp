@@ -111,6 +111,11 @@ LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
 		cout << "空链表" << endl;
 		return nullptr;
 	}
+	else if (pos <= 0)
+	{
+		cout << "输入位置错误" << endl;
+		return slist;
+	}	
 	else
 	{
 		LinkedListNode* nlist = (LinkedListNode*)malloc(sizeof(LinkedListNode));
@@ -160,6 +165,11 @@ LinkedList GetLinkedList(LinkedList slist, int pos)
 		cout << "空链表" << endl;
 		return nullptr;
 	}
+	else if (pos <= 0)
+	{
+		cout << "输入位置错误" << endl;
+		return slist;
+	}	
 	else
 	{
 		int index = 1;
