@@ -232,15 +232,19 @@ LinkedList LinkedListDelete(LinkedList slist, int pos)
 //O(n)
 int GetLinkedListLength(LinkedList slist)
 {
-	LinkedListNode* p = slist;
-	int length = 0;
-	while (p)
+	if (nullptr == slist)
 	{
-		++length;
-		p = p->next;
+		cout << "空链表" << endl;
+		return 0;
 	}
+	else
+	{
+		int index = 1;
+		LinkedListNode* clist = slist;
+		for (clist = slist; clist->next != nullptr; clist = clist->next, ++index);
 
-	return length;
+		return index;
+	}
 }
 
 //O(n)
