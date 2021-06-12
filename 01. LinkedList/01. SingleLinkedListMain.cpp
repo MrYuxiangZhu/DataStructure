@@ -23,8 +23,8 @@ int main()
 	cout << "头差法后链表长度: " << GetLinkedListLength(slist1) << endl;
 
 	cout << "删除元素" << endl;
-	slist1 = LinkedListDelete(slist1, array[2]);
-	slist1 = LinkedListDelete(slist1, array[3]);
+	slist1 = LinkedListDelete(slist1, 1);
+	slist1 = LinkedListDelete(slist1, 3);
 
 	slist1 = LinkedListCreateByHeader(slist1, array[2]);
 	slist1 = LinkedListCreateByHeader(slist1, array[3]);
