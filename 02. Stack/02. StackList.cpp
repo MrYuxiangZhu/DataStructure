@@ -10,7 +10,7 @@ StackList* StackListCreate()
 	LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
 	if (nullptr == list)
 	{
-		cout << "´´½¨Õ»Ê§°Ü" << endl;
+		cout << "åˆ›å»ºæ ˆå¤±è´¥" << endl;
 		return nullptr;
 	}
 	else
@@ -26,7 +26,7 @@ int StackListPush(StackList* stack, StackListNode* node)
 {
 	if (nullptr == stack)
 	{
-		cout << "Õ»Î´³õÊ¼»¯" << endl;
+		cout << "æ ˆæœªåˆå§‹åŒ–" << endl;
 		return ERROR;
 	}
 	else
@@ -47,7 +47,7 @@ StackListNode* StackListPop(StackList* stack)
 	LinkedList* list = (LinkedList*)stack;
 	if (nullptr == stack)
 	{
-		cout << "¿ÕÕ»" << endl;
+		cout << "ç©ºæ ˆ" << endl;
 		return nullptr;
 	}
 
