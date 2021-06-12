@@ -126,7 +126,7 @@ LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
 			if (1 == pos)
 			{
 				nlist->data = elem;
-				nlist->next = slist;	//指向下一个结点
+				nlist->next = slist;//指向下一个结点
 				slist = nlist;//插入的结点作为新的头结点
 			}
 			else
@@ -184,52 +184,45 @@ LinkedList GetLinkedList(LinkedList slist, int pos)
 }
 
 //O(n)
-LinkedList LinkedListDelete(LinkedList slist, ElemType elem)
+LinkedList LinkedListDelete(LinkedList slist, int pos)
 {
 	if (nullptr == slist)
 	{
 		cout << "空链表" << endl;
 		return nullptr;
 	}
+	else if (pos <= 0)
+	{
+		cout << "输入位置错误" << endl;
+		return slist;
+	}
 	else
 	{
-		bool FindFlag = false;
-		LinkedListNode* plist = slist;//上一个结点
-		LinkedListNode* clist = slist;//当前结点
-		LinkedListNode* tlist = nullptr;
-		while (nullptr != clist)
+		LinkedListNode* nlist = nullptr;
+		if (1 == pos) //删除头结点
 		{
-			if (elem == clist->data)
-			{
-				FindFlag = true;
-				break;
-			}
-			else
-			{
-				plist = clist;
-				clist = clist->next;
-			}
-		}
-
-		if (FindFlag)
-		{
-			if (clist == slist)
-			{
-				tlist = slist;
-				slist = slist->next;
-			}
-			else
-			{
-				tlist = clist;
-				plist->next = clist->next;
-			}
-
-			cout << "元素 " << elem << " 删除成功" << endl;
-			free(tlist);
+			nlist = slist;
+			slist = slist->next;
+			free(nlist);
 		}
 		else
 		{
-			cout << "未找到该元素" << endl;
+			int index = 1;	//头结点位置
+			LinkedListNode* plist = slist;//上一个结点
+			LinkedListNode* clist = slist;//当前结点
+			for (plist = slist, clist = slist; index < pos && clist->next != nullptr; plist = clist, clist = clist->next, ++index);
+			if (index == pos)
+			{
+				nlist = clist;
+				plist->next = clist->next;
+				free(nlist);
+			}
+			else
+			{
+				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << endl;
+			}
+
+			return slist;
 		}
 
 		return slist;

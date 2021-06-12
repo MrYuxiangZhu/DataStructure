@@ -42,14 +42,14 @@ int main()
 	cout << "尾插法后链表长度: " << GetLinkedListLength(slist2) << endl;
 
 	cout << "删除元素" << endl;
-	slist2 = LinkedListDelete(slist2, array[2]);
-	slist2 = LinkedListDelete(slist2, array[3]);
+	slist2 = LinkedListDelete(slist2, 2);
+	slist2 = LinkedListDelete(slist2, 3);
 
 	display(slist2);
 
 	cout << "插入元素" << endl;
 
-	slist2 = LinkedListInsert(slist2, array[2], 2);
+	slist2 = LinkedListInsert(slist2, array[2], 1);
 	slist2 = LinkedListInsert(slist2, array[2], 4);
 	slist2 = LinkedListInsert(slist2, array[3], 6);
 

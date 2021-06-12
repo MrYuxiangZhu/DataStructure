@@ -19,7 +19,7 @@ LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos);//插入结点
 
 LinkedList GetLinkedList(LinkedList slist, int pos);//获取结点
 
-LinkedList LinkedListDelete(LinkedList slist, ElemType elem);		//删除链表结点
+LinkedList LinkedListDelete(LinkedList slist, int pos);		//删除链表结点
 
 int GetLinkedListLength(LinkedList slist);	//获取链表长度
 
