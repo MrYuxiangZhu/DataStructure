@@ -42,10 +42,8 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 	{
 		LinkedListNode* header = slist;
 		LinkedListNode* clist = slist;
-		while (nullptr != clist->next)//寻找空结点
-		{
-			clist = clist->next;
-		}
+
+		for (clist = slist; clist->next != nullptr; clist = clist->next);//寻找尾结点
 
 		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
 		if (nullptr == node)
@@ -115,7 +113,7 @@ LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
 	{
 		cout << "输入位置错误" << endl;
 		return slist;
-	}	
+	}
 	else
 	{
 		LinkedListNode* nlist = (LinkedListNode*)malloc(sizeof(LinkedListNode));
@@ -169,7 +167,7 @@ LinkedList GetLinkedList(LinkedList slist, int pos)
 	{
 		cout << "输入位置错误" << endl;
 		return slist;
-	}	
+	}
 	else
 	{
 		int index = 1;
@@ -260,7 +258,7 @@ void display(LinkedList slist)
 		cout << "输入空链表" << endl;
 		return;
 	}
-	
+
 	LinkedListNode* p = slist;
 	int count = 0;
 	while (p)
