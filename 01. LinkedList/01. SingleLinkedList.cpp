@@ -126,7 +126,7 @@ LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
 			if (1 == pos)
 			{
 				nlist->data = elem;
-				nlist->next = slist->next;	//指向下一个结点
+				nlist->next = slist;	//指向下一个结点
 				slist = nlist;//插入的结点作为新的头结点
 			}
 			else
