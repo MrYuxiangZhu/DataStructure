@@ -23,7 +23,7 @@ LinkedList LinkedListDelete(LinkedList slist, int pos);		//删除链表结点
 
 int GetLinkedListLength(LinkedList slist);	//获取链表长度
 
-void display(LinkedList slist);
+void DisplayLinkedList(LinkedList slist);
 
 
 

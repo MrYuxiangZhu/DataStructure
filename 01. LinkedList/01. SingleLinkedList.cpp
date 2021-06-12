@@ -248,7 +248,7 @@ int GetLinkedListLength(LinkedList slist)
 }
 
 //O(n)
-void display(LinkedList slist)
+void DisplayLinkedList(LinkedList slist)
 {
 	if (nullptr == slist)
 	{
