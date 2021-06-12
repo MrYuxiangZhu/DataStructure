@@ -17,11 +17,11 @@ int main()
 	StackList* stack = StackListCreate();
 	Teacher teacher[5] =
 	{
-		{nullptr, 10 },
-		{nullptr, 20 },
-		{nullptr, 30 },
-		{nullptr, 40 },
-		{nullptr, 50 }
+		{ nullptr, 10 },
+		{ nullptr, 20 },
+		{ nullptr, 30 },
+		{ nullptr, 40 },
+		{ nullptr, 50 }
 	};
 	
 	StackListPush(stack, &teacher[0]);
