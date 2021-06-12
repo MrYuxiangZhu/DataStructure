@@ -12,8 +12,8 @@ typedef struct _LinkedListNode
 
 typedef struct _List
 {
-	LinkedListNode header;	//头结点
-	int length;	//链表长度
+	LinkedListNode header;//头结点
+	int length;//链表长度
 }LinkedList;
 
 StackList* StackListCreate();
