@@ -24,11 +24,6 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 	}
 	else
 	{
-		LinkedListNode* header = slist;
-		LinkedListNode* clist = slist;
-
-		for (clist = slist; clist->next != nullptr; clist = clist->next);//寻找尾结点
-
 		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
 		if (nullptr == node)
 		{
@@ -37,6 +32,11 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 		}
 		else
 		{
+			LinkedListNode* header = slist;
+			LinkedListNode* clist = slist;
+
+			for (clist = slist; clist->next != nullptr; clist = clist->next);//寻找尾结点
+
 			node->data = elem;
 			node->pre = clist;
 			node->next = nullptr;
@@ -69,8 +69,6 @@ LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
 	}
 	else
 	{
-		LinkedListNode* clist = slist;
-
 		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
 		if (nullptr == node)
 		{
@@ -79,6 +77,8 @@ LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
 		}
 		else
 		{
+			LinkedListNode* clist = slist;
+
 			node->data = elem;
 			node->next = clist;
 			clist->pre = node;
