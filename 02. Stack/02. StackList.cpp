@@ -52,6 +52,7 @@ StackListNode* StackListPop(StackList* stack)
 	}
 
 	assert(list->length > 0);
+	
 	LinkedListNode* plist = &list->header;
 	LinkedListNode* clist = &list->header;
 	for (int index = 0; index < list->length; plist = clist, clist = clist->next, ++index);
