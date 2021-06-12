@@ -255,6 +255,12 @@ int GetLinkedListLength(LinkedList slist)
 //O(n)
 void display(LinkedList slist)
 {
+	if (nullptr == slist)
+	{
+		cout << "输入空链表" << endl;
+		return;
+	}
+	
 	LinkedListNode* p = slist;
 	int count = 0;
 	while (p)
