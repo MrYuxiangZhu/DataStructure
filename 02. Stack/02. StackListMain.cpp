@@ -34,5 +34,6 @@ int main()
 	cout << (*(Teacher*)StackListPop(stack)).age << endl;
 	cout << (*(Teacher*)StackListPop(stack)).age << endl;
 	cout << (*(Teacher*)StackListPop(stack)).age << endl;
+
 	return 0;
 }

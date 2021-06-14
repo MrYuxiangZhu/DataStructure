@@ -21,7 +21,7 @@ StackList* StackListCreate()
 	}
 }
 
-//O(n)
+//O(1)
 int StackListPush(StackList* stack, StackListNode* node)
 {
 	if (nullptr == stack)
@@ -34,29 +34,29 @@ int StackListPush(StackList* stack, StackListNode* node)
 		LinkedList* list = (LinkedList*)stack;
 		LinkedListNode* nlist = (LinkedListNode*)node;
 		LinkedListNode* clist = &list->header;
-		for (int index = 0; index < list->length; clist = clist->next, ++index);
+		nlist->next = clist->next;
 		clist->next = nlist;
 		list->length++;
 		return 0;
 	}
 }
 
-//O(n)
+//O(1)
 StackListNode* StackListPop(StackList* stack)
 {
 	LinkedList* list = (LinkedList*)stack;
-	if (nullptr == stack)
+	if (nullptr == list->header.next)
 	{
 		cout << "空栈" << endl;
 		return nullptr;
 	}
 
 	assert(list->length > 0);
-	
-	LinkedListNode* plist = &list->header;
+	LinkedListNode* nlist = nullptr;
 	LinkedListNode* clist = &list->header;
-	for (int index = 0; index < list->length; plist = clist, clist = clist->next, ++index);
-	plist->next = nullptr;
+	nlist = clist->next;
+	clist->next = clist->next->next;
 	list->length--;
-	return clist;
+	return nlist;
 }
+
