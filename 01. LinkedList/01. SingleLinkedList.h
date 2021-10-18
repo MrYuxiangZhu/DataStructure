@@ -2,28 +2,27 @@
 
 #define ElemType int
 
-//¶¨Òå½áµãÀàĞÍ
+//å®šä¹‰ç»“ç‚¹ç±»å‹
 typedef struct _LinkedListNode
 {
-	int data;						//Êı¾İÀàĞÍ
-	struct _LinkedListNode* next;	//Ö¸ÏòÖ±½Óºó¼ÌÔªËØµÄÖ¸Õë
-}LinkedListNode, *LinkedList;//List_Node±íÊ¾½áµãµÄÀàĞÍ£¬LinkedList±íÊ¾Ö¸ÏòList_Node½áµãÀàĞÍµÄÖ¸ÕëÀàĞÍ
+	ElemType data;						//æ•°æ®ç±»å‹
+	struct _LinkedListNode* next;	//æŒ‡å‘ç›´æ¥åç»§å…ƒç´ çš„æŒ‡é’ˆ
+}LinkedListNode, *LinkedList;//List_Nodeè¡¨ç¤ºç»“ç‚¹çš„ç±»å‹ï¼ŒLinkedListè¡¨ç¤ºæŒ‡å‘List_Nodeç»“ç‚¹ç±»å‹çš„æŒ‡é’ˆç±»å‹
 
-LinkedList LinkedListInit(); //³õÊ¼»¯Á´±í
+LinkedList LinkedListInit(); //åˆå§‹åŒ–é“¾è¡¨
 
-LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem);//Í·²å·¨½¨Á¢µ¥Á´±í
+LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem);//å¤´æ’æ³•å»ºç«‹å•é“¾è¡¨
 
-LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem);  //Î²²å·¨½¨Á¢µ¥Á´±í
+LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem);  //å°¾æ’æ³•å»ºç«‹å•é“¾è¡¨
 
-LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos);//²åÈë½áµã
+LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos);	//æ’å…¥é“¾è¡¨ç»“ç‚¹
 
-LinkedList GetLinkedList(LinkedList slist, int pos);//»ñÈ¡½áµã
+LinkedList LinkedListDelete(LinkedList slist, ElemType elem);		//åˆ é™¤é“¾è¡¨ç»“ç‚¹
 
-LinkedList LinkedListDelete(LinkedList slist, int pos);		//É¾³ıÁ´±í½áµã
+LinkedListNode* GetLinkedListNode(LinkedList slist, int pos);
 
-int GetLinkedListLength(LinkedList slist);	//»ñÈ¡Á´±í³¤¶È
+LinkedListNode* LocateLinkedListNode(LinkedList slist, ElemType elem);
 
-void DisplayLinkedList(LinkedList slist);
+int GetLinkedListLength(LinkedList slist);	//è·å–é“¾è¡¨é•¿åº¦
 
-
-
+void display(LinkedList slist);

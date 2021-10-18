@@ -20,30 +20,50 @@ LinkedList LinkedListInit()
 	return header;
 }
 
-//O(n)
+//O(1)
 LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 {
 	if (nullptr == slist)
 	{
-		LinkedListNode* header = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-		if (nullptr == header)
+		cout << "链表未初始化" << endl;
+		return nullptr;
+	}
+	else
+	{
+		LinkedListNode* header = slist;
+
+		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
+		if (nullptr == node)
 		{
-			cout << "创建链表头失败" << endl;
+			cout << "创建结点失败" << endl;
 			return nullptr;
 		}
 		else
 		{
-			header->data = elem;
-			header->next = nullptr;
+			node->data = elem;
+			node->next = header->next;
+			header->next = node;
 			return header;
 		}
+	}
+}
+
+//O(1)
+LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
+{
+	if (nullptr == slist)
+	{
+		cout << "链表未初始化" << endl;
+		return nullptr;
 	}
 	else
 	{
 		LinkedListNode* header = slist;
 		LinkedListNode* clist = slist;
-
-		for (clist = slist; clist->next != nullptr; clist = clist->next);//寻找尾结点
+		while (nullptr != clist->next)
+		{
+			clist = clist->next;
+		}
 
 		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
 		if (nullptr == node)
@@ -61,30 +81,23 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 	}
 }
 
-//O(1)
-LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
+//O(n)
+LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
 {
-	LinkedListNode* header = nullptr;
-
 	if (nullptr == slist)
 	{
-		header = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-		if (nullptr == header)
-		{
-			cout << "创建链表头失败" << endl;
-			return nullptr;
-		}
-		else
-		{
-			header->data = elem;
-			header->next = nullptr;
-			return header;
-		}
+		cout << "空链表" << endl;
+		return nullptr;
 	}
 	else
 	{
-		LinkedListNode* clist = slist;
-
+		LinkedListNode* header = slist;//头结点
+		LinkedListNode* clist = slist;//当前结点
+		for (int i = 1; i < pos && nullptr != clist->next; ++i)
+		{
+			clist = clist->next;
+		}
+		
 		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
 		if (nullptr == node)
 		{
@@ -94,69 +107,54 @@ LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
 		else
 		{
 			node->data = elem;
-			node->next = clist;
-			header = node;
+			node->next = clist->next;
+			clist->next = node;
 			return header;
 		}
 	}
 }
 
 //O(n)
-LinkedList LinkedListInsert(LinkedList slist, ElemType elem, int pos)
+LinkedList LinkedListDelete(LinkedList slist, ElemType elem)
 {
 	if (nullptr == slist)
 	{
 		cout << "空链表" << endl;
 		return nullptr;
 	}
-	else if (pos <= 0)
-	{
-		cout << "输入位置错误" << endl;
-		return slist;
-	}
 	else
 	{
-		LinkedListNode* nlist = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-		if (nullptr == nlist)
+		bool FindFlag = false;
+		LinkedListNode* header = slist;//头结点
+		LinkedListNode* clist = slist;//当前结点
+		LinkedListNode* tlist = nullptr;
+		while (nullptr != clist->next)
 		{
-			cout << "创建结点失败" << endl;
-		}
-		else
-		{
-			if (1 == pos)
+			if (elem == clist->next->data)
 			{
-				nlist->data = elem;
-				nlist->next = slist;//指向下一个结点
-				slist = nlist;//插入的结点作为新的头结点
+				tlist = clist->next;
+				clist->next = clist->next->next;
+				free(tlist);
+				tlist = nullptr;
+				FindFlag = true;
+				break;
 			}
 			else
 			{
-				int index = 1;
-				LinkedListNode* plist = slist;
-				LinkedListNode* clist = slist;
-				for (plist = slist, clist = slist; index < pos && clist->next != nullptr; plist = clist, clist = clist->next, ++index);
-				if (index == pos)
-				{
-					nlist->data = elem;
-					nlist->next = clist; //指向下一个结点
-					plist->next = nlist;
-				}
-				else
-				{
-					cout << "插入位置 " << pos << " 超出链表长度" << index << " ，默认插入到尾结点"<< endl;
-					nlist->data = elem;
-					nlist->next = nullptr;
-					clist->next = nlist;
-				}
+				clist = clist->next;
 			}
 		}
+		
+		if (!FindFlag)
+		{
+			cout << "未找到该元素: " << elem << endl;
+		}
 
-		return slist;
+		return header;
 	}
 }
 
-//O(n)
-LinkedList GetLinkedList(LinkedList slist, int pos)
+LinkedListNode* GetLinkedListNode(LinkedList slist, int pos)
 {
 	if (nullptr == slist)
 	{
@@ -166,98 +164,59 @@ LinkedList GetLinkedList(LinkedList slist, int pos)
 	else if (pos <= 0)
 	{
 		cout << "输入位置错误" << endl;
-		return slist;
+		return nullptr;
 	}
 	else
 	{
-		int index = 1;
-		LinkedListNode* clist = slist;
-		for (clist = slist; index < pos && clist->next != nullptr; clist = clist->next, ++index);
-		
-		if (index < pos)
+		LinkedListNode* clist = slist;//当前结点
+		for (int i = 0; i < pos && clist->next != nullptr; ++i)
 		{
-			cout << "插入位置 " << pos << " 超出链表长度" << index << " ，默认输出尾结点" << endl;
+			clist = clist->next;
 		}
 
 		return clist;
 	}
 }
 
-//O(n)
-LinkedList LinkedListDelete(LinkedList slist, int pos)
+LinkedListNode* LocateLinkedListNode(LinkedList slist, ElemType elem)
 {
 	if (nullptr == slist)
 	{
 		cout << "空链表" << endl;
 		return nullptr;
 	}
-	else if (pos <= 0)
-	{
-		cout << "输入位置错误" << endl;
-		return slist;
-	}
 	else
 	{
-		LinkedListNode* nlist = nullptr;
-		if (1 == pos) //删除头结点
+		LinkedListNode* clist = slist->next;//当前结点
+		while (clist && elem != clist->data)
 		{
-			nlist = slist;
-			slist = slist->next;
-			free(nlist);
-		}
-		else
-		{
-			int index = 1;	//头结点位置
-			LinkedListNode* plist = slist;//上一个结点
-			LinkedListNode* clist = slist;//当前结点
-			for (plist = slist, clist = slist; index < pos && clist->next != nullptr; plist = clist, clist = clist->next, ++index);
-			if (index == pos)
-			{
-				nlist = clist;
-				plist->next = clist->next;
-				free(nlist);
-			}
-			else
-			{
-				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << endl;
-			}
-
-			return slist;
+			clist = clist->next;
 		}
 
-		return slist;
+		return clist; //查找成功返回值为elem的结点地址, 查找失败p为NULL
 	}
 }
 
 //O(n)
 int GetLinkedListLength(LinkedList slist)
 {
-	if (nullptr == slist)
+	LinkedListNode* p = slist->next;
+	int length = 0;
+	while (p)
 	{
-		cout << "空链表" << endl;
-		return 0;
+		++length;
+		p = p->next;
 	}
-	else
-	{
-		int index = 1;
-		LinkedListNode* clist = slist;
-		for (clist = slist; clist->next != nullptr; clist = clist->next, ++index);
 
-		return index;
-	}
+	return length;
 }
 
 //O(n)
-void DisplayLinkedList(LinkedList slist)
+void display(LinkedList slist)
 {
-	if (nullptr == slist)
-	{
-		cout << "输入空链表" << endl;
-		return;
-	}
-
 	LinkedListNode* p = slist;
 	int count = 0;
+	p = p->next;//跳过头结点
 	while (p)
 	{
 		cout << "第" << ++count << "个元素的值为: " << p->data << endl;

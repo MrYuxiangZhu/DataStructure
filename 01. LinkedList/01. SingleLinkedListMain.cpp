@@ -1,4 +1,4 @@
-// SingleLinkedList.cpp : ´ËÎÄ¼ş°üº¬ "main" º¯Êı¡£³ÌĞòÖ´ĞĞ½«ÔÚ´Ë´¦¿ªÊ¼²¢½áÊø¡£
+// SingleLinkedList.cpp : æ­¤æ–‡ä»¶åŒ…å« "main" å‡½æ•°ã€‚ç¨‹åºæ‰§è¡Œå°†åœ¨æ­¤å¤„å¼€å§‹å¹¶ç»“æŸã€‚
 //
 
 #include <iostream>
@@ -8,56 +8,55 @@ using namespace std;
 
 int main()
 {
-	LinkedList slist1 = nullptr;
-	LinkedList slist2 = nullptr;
+	LinkedList slist1 = LinkedListInit();
+	LinkedList slist2 = LinkedListInit();
 	int array[5] = { 1, 2, 3, 4, 5 };
 
-	cout << "Í·²î·¨" << endl;
+	cout << "å¤´å·®æ³•" << endl;
 	slist1 = LinkedListCreateByHeader(slist1, array[0]);
 	slist1 = LinkedListCreateByHeader(slist1, array[1]);
 	slist1 = LinkedListCreateByHeader(slist1, array[2]);
 	slist1 = LinkedListCreateByHeader(slist1, array[3]);
 	slist1 = LinkedListCreateByHeader(slist1, array[4]);
-	DisplayLinkedList(slist1);
+	display(slist1);
+	cout << "é“¾è¡¨çš„é•¿åº¦ä¸ºï¼š" << GetLinkedListLength(slist1) << endl;
 
-	cout << "Í·²î·¨ºóÁ´±í³¤¶È: " << GetLinkedListLength(slist1) << endl;
+	cout << "è¾“å…¥ç¬¬2ä¸ªç»“ç‚¹æ•°æ®ï¼š" << GetLinkedListNode(slist1, 2)->data << endl;
+	cout << "æŸ¥æ‰¾æ•°æ®å…ƒç´ 3ï¼š" << LocateLinkedListNode(slist1, 3)->data << endl;
 
-	cout << "É¾³ıÔªËØ" << endl;
-	slist1 = LinkedListDelete(slist1, 1);
-	slist1 = LinkedListDelete(slist1, 3);
+	cout << "å¤´å·®æ³•åé“¾è¡¨é•¿åº¦ï¼š" << GetLinkedListLength(slist1) << endl;
 
-	slist1 = LinkedListCreateByHeader(slist1, array[2]);
-	slist1 = LinkedListCreateByHeader(slist1, array[3]);
-	DisplayLinkedList(slist1);
+	cout << "åˆ é™¤å…ƒç´ " << endl;
+	slist1 = LinkedListDelete(slist1, array[2]);
+	slist1 = LinkedListDelete(slist1, array[3]);
+	slist1 = LinkedListDelete(slist1, 8);
 
-	cout << "Î²²å·¨" << endl;
+	slist1 = LinkedListInsert(slist1, array[2], 1);
+	slist1 = LinkedListInsert(slist1, array[3], 2);
+	display(slist1);
+
+	cout << "å°¾æ’æ³•" << endl;
 	slist2 = LinkedListCreateByTail(slist2, array[0]);
 	slist2 = LinkedListCreateByTail(slist2, array[1]);
 	slist2 = LinkedListCreateByTail(slist2, array[2]);
 	slist2 = LinkedListCreateByTail(slist2, array[3]);
 	slist2 = LinkedListCreateByTail(slist2, array[4]);
 
-	DisplayLinkedList(slist2);
+	display(slist2);
 
-	cout << "Î²²å·¨ºóÁ´±í³¤¶È: " << GetLinkedListLength(slist2) << endl;
+	cout << "é“¾è¡¨çš„é•¿åº¦ä¸ºï¼š" << GetLinkedListLength(slist2) << endl;
 
-	cout << "É¾³ıÔªËØ" << endl;
-	slist2 = LinkedListDelete(slist2, 2);
-	slist2 = LinkedListDelete(slist2, 3);
+	cout << "å°¾æ’æ³•åé“¾è¡¨é•¿åº¦: " << GetLinkedListLength(slist2) << endl;
 
-	DisplayLinkedList(slist2);
+	cout << "åˆ é™¤å…ƒç´ " << endl;
+	slist2 = LinkedListDelete(slist2, array[4]);
+	slist2 = LinkedListDelete(slist2, array[1]);
+	slist2 = LinkedListDelete(slist2, array[2]);
+	slist2 = LinkedListDelete(slist2, array[3]);
 
-	cout << "²åÈëÔªËØ" << endl;
+	slist2 = LinkedListCreateByTail(slist2, array[2]);
+	slist2 = LinkedListCreateByTail(slist2, array[3]);
 
-	slist2 = LinkedListInsert(slist2, array[2], 1);
-	slist2 = LinkedListInsert(slist2, array[2], 4);
-	slist2 = LinkedListInsert(slist2, array[3], 6);
-
-	DisplayLinkedList(slist2);
-
-	cout << "µÚ 5 ¸öÔªËØÎª£º" << GetLinkedList(slist2, 5)->data << endl;
-	cout << "µÚ 6 ¸öÔªËØÎª£º" << GetLinkedList(slist2, 6)->data << endl;
-	cout << "µÚ 7 ¸öÔªËØÎª£º" << GetLinkedList(slist2, 7)->data << endl;
-
+	display(slist2);
 	return 0;
 }
