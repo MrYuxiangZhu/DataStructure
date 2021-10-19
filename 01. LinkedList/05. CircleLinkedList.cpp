@@ -18,26 +18,24 @@ CircleLinkedList CircleLinkedListCreate(CircleLinkedList slist, ElemType elem)
 		{
 			slist->data = elem;
 			slist->next = slist;
-			return slist;
+			return slist->next; //返回尾结点
 		}
 	}
 	else
 	{
-		CircleLinkedListNode* nlist = (CircleLinkedListNode*)malloc(sizeof(CircleLinkedListNode));
-		if (nullptr == nlist)
+		CircleLinkedListNode* rlist = (CircleLinkedListNode*)malloc(sizeof(CircleLinkedListNode));
+		if (nullptr == rlist)
 		{
 			cout << "创建结点失败" << endl;
 		}
 		else
 		{
-			CircleLinkedListNode* clist = slist;
-			for (clist = slist; clist->next != slist; clist = clist->next);
-			nlist->data = elem;
-			nlist->next = clist->next;
-			clist->next = nlist;
+			rlist->data = elem;
+			rlist->next = slist->next;
+			slist->next = rlist;
 		}
 
-		return slist;
+		return rlist; //返回尾结点
 	}
 }
 
@@ -56,34 +54,27 @@ CircleLinkedList CircleLinkedListDelete(CircleLinkedList slist, int pos)
 	}
 	else
 	{
-		CircleLinkedListNode* nlist = nullptr;
 		CircleLinkedListNode* clist = slist;
-		if (1 == pos)
+		CircleLinkedListNode* rlist = slist;//存放尾指针
+		CircleLinkedListNode* nlist = nullptr;
+
+		int index = 1;	//头结点位置
+		for (clist = slist; index < pos && clist->next != slist; clist = clist->next, ++index);//寻找当前结点
+		if (index == pos)
 		{
-			for (clist = slist; clist->next != slist; clist = clist->next);//找到尾结点
-			nlist = slist;				//暂存头结点
-			clist->next = slist->next;	//尾结点的下一个结点指向头结点的下一个结点
-			slist = slist->next;		//头结点的下一个结点作为新的头结点
+			clist->next == slist ? rlist = clist : //最后一个结点作为新的尾结点
+								   rlist = slist;  //尾结点不变
+
+			nlist = clist->next;	//暂存要删除的结点结点
+			clist->next = clist->next->next;	//指向当前结点的下一个结点
 			free(nlist);
 		}
 		else
 		{
-			int index = 1;	//头结点位置
-			CircleLinkedListNode* plist = slist;	//指向上一个结点
-			for (plist = slist, clist = slist; index < pos && clist->next != slist; plist = clist, clist = clist->next, ++index);//寻找当前结点
-			if (index == pos)
-			{
-				nlist = clist;	//暂存当前结点
-				plist->next = clist->next;	//指向当前结点的下一个结点
-				free(nlist);
-			}
-			else
-			{
-				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << endl;
-			}
+			cout << "删除位置 " << pos << " 超出链表最大长度 " << index << endl;
 		}
 
-		return slist;
+		return rlist;
 	}
 }
 
@@ -102,39 +93,30 @@ CircleLinkedList CircleLinkedListInsert(CircleLinkedList slist, ElemType elem, i
 	}
 	else
 	{
-		CircleLinkedListNode* clist = slist;
 		CircleLinkedListNode* nlist = (CircleLinkedListNode*)malloc(sizeof(CircleLinkedListNode));
 		if (nullptr == nlist)
 		{
 			cout << "创建结点失败" << endl;
 			return slist;
 		}
-		else if (1 == pos)
-		{
-			for (clist = slist; clist->next != slist; clist = clist->next);//找到尾结点
-			nlist->data = elem;
-			nlist->next = slist;	//插入结点下一个结点指向头结点
-			clist->next = nlist;	//尾结点下一个结点指向新结点
-			slist = nlist;			//插入结点作为新的头结点
-			return slist;
-		}
 		else
 		{
 			int index = 1;	//头结点位置
-			CircleLinkedListNode* plist = slist;	//指向上一个结点
-			for (plist = slist, clist = slist; index < pos && clist->next != slist; plist = clist, clist = clist->next, ++index);//寻找当前结点
+			CircleLinkedListNode* clist = slist;
+			for (clist = slist; index < pos && clist->next != slist; clist = clist->next, ++index);//寻找当前结点
 			if (index == pos)	//在指定位置插入
 			{
 				nlist->data = elem;
-				nlist->next = clist;	//插入结点下一个结点指向当前位置结点
-				plist->next = nlist;	//上一个结点的下一个结点指向新结点
+				nlist->next = clist->next;	//插入结点下一个结点指向当前位置结点
+				clist->next = nlist;	//上一个结点的下一个结点指向新结点
 			}
 			else
 			{
-				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << "，默认插入到尾结点"<< endl;
+				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << "，默认插入到尾结点" << endl;
 				nlist->data = elem;
-				nlist->next = clist->next;	//插入结点的下一个结点指向头结点
-				clist->next = nlist;
+				nlist->next = slist->next;	//插入结点下一个结点指向当前位置结点
+				slist->next = nlist;		//尾结点指针域指向新结点
+				slist = nlist;				//新结点作为新的尾结点
 			}
 
 			return slist;
@@ -160,13 +142,13 @@ CircleLinkedList GetCircleLinkedList(CircleLinkedList slist, int pos)
 		int index = 1;
 		CircleLinkedListNode* clist = slist;
 		for (clist = slist; index < pos && clist->next != slist; clist = clist->next, ++index);//找到尾结点
-		
+
 		if (index < pos)
 		{
 			cout << "查找位置 " << pos << " 超出链表最大长度 " << index << "，默认输出尾结点" << endl;
 		}
 
-		return clist;
+		return clist->next;
 	}
 }
 
@@ -200,9 +182,9 @@ void DisplayCircleLinkedList(CircleLinkedList slist)
 	int count = 0;
 	while (p->next != slist)
 	{
-		cout << "第" << ++count << "个元素的值为: " << p->data << endl;
+		cout << "第" << ++count << "个元素的值为: " << p->next->data << endl;
 		p = p->next;
 	}
 
-	cout << "第" << ++count << "个元素的值为: " << p->data << endl;
+	cout << "第" << ++count << "个元素的值为: " << p->next->data << endl;
 }

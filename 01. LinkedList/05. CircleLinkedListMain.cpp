@@ -1,4 +1,4 @@
-// CircleLinkedList.cpp : ´ËÎÄ¼ş°üº¬ "main" º¯Êı¡£³ÌĞòÖ´ĞĞ½«ÔÚ´Ë´¦¿ªÊ¼²¢½áÊø¡£
+// CircleLinkedList.cpp : æ­¤æ–‡ä»¶åŒ…å« "main" å‡½æ•°ã€‚ç¨‹åºæ‰§è¡Œå°†åœ¨æ­¤å¤„å¼€å§‹å¹¶ç»“æŸã€‚
 //
 
 #include <iostream>
@@ -11,32 +11,32 @@ int main()
 	CircleLinkedList clist = nullptr;
 	int array[5] = { 1, 2, 3, 4, 5 };
 
-	cout << "´´½¨ºóµÄÁĞ±í" << endl;
+	cout << "åˆ›å»ºåçš„åˆ—è¡¨" << endl;
 	clist = CircleLinkedListCreate(clist, array[0]);
 	clist = CircleLinkedListCreate(clist, array[1]);
 	clist = CircleLinkedListCreate(clist, array[2]);
 	clist = CircleLinkedListCreate(clist, array[3]);
 	clist = CircleLinkedListCreate(clist, array[4]);
 
-	cout << "µÚ1¸öÔªËØµÄÖµÎª: " << GetCircleLinkedList(clist, 1)->data << endl;
-	cout << "µÚ2¸öÔªËØµÄÖµÎª: " << GetCircleLinkedList(clist, 2)->data << endl;
-	cout << "µÚ3¸öÔªËØµÄÖµÎª: " << GetCircleLinkedList(clist, 3)->data << endl;
-	cout << "µÚ4¸öÔªËØµÄÖµÎª: " << GetCircleLinkedList(clist, 4)->data << endl;
-	cout << "µÚ5¸öÔªËØµÄÖµÎª: " << GetCircleLinkedList(clist, 5)->data << endl;
+	cout << "ç¬¬1ä¸ªå…ƒç´ çš„å€¼ä¸º: " << GetCircleLinkedList(clist, 1)->data << endl;
+	cout << "ç¬¬2ä¸ªå…ƒç´ çš„å€¼ä¸º: " << GetCircleLinkedList(clist, 2)->data << endl;
+	cout << "ç¬¬3ä¸ªå…ƒç´ çš„å€¼ä¸º: " << GetCircleLinkedList(clist, 3)->data << endl;
+	cout << "ç¬¬4ä¸ªå…ƒç´ çš„å€¼ä¸º: " << GetCircleLinkedList(clist, 4)->data << endl;
+	cout << "ç¬¬5ä¸ªå…ƒç´ çš„å€¼ä¸º: " << GetCircleLinkedList(clist, 5)->data << endl;
 
-	cout << "Á´±í³¤¶ÈÎª: " << GetCircleLinkedListLength(clist) << endl;
+	cout << "é“¾è¡¨é•¿åº¦ä¸º: " << GetCircleLinkedListLength(clist) << endl;
 
-	cout << "²åÈëÔªËØºóµÄÁĞ±í" << endl;
-	clist = CircleLinkedListInsert(clist, 6, 6);
+	cout << "æ’å…¥å…ƒç´ åçš„åˆ—è¡¨" << endl;
+	clist = CircleLinkedListInsert(clist, 6, 1);
 	clist = CircleLinkedListInsert(clist, 7, 4);
 
 	DisplayCircleLinkedList(clist);
 
-	cout << "Á´±í³¤¶ÈÎª: " << GetCircleLinkedListLength(clist) << endl;
+	cout << "é“¾è¡¨é•¿åº¦ä¸º: " << GetCircleLinkedListLength(clist) << endl;
 
-	cout << "É¾³ıÔªËØ" << endl;
+	cout << "åˆ é™¤å…ƒç´ " << endl;
 	clist = CircleLinkedListDelete(clist, 1);
-	clist = CircleLinkedListDelete(clist, 6);
+	clist = CircleLinkedListDelete(clist, 7);
 
 	DisplayCircleLinkedList(clist);
 

@@ -5,8 +5,8 @@
 
 typedef struct _CircleLinkedList
 {
-	struct _CircleLinkedList* next;
 	ElemType data;
+	struct _CircleLinkedList* next;
 }CircleLinkedListNode, *CircleLinkedList;
 
 CircleLinkedList CircleLinkedListCreate(CircleLinkedList slist, ElemType elem);
