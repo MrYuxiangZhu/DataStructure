@@ -95,7 +95,7 @@ bool LinkedListIntersectByLength(LinkedList List1, LinkedList List2)
 	while (diff && pTemp)
 	{
 		pTemp = pTemp->next;
-		diff;
+		diff--;
 	}
 
 	//逐个比较pTemp和pShort链表中的节点是否相同
