@@ -103,7 +103,7 @@ void DequeTraverse(BiTree& Tree)
 {
 	deque<BiTNode*> BDeque;
 	BDeque.emplace_back(Tree);//根结点进队列
-	while (1)
+	while (!BDeque.empty())
 	{
 		BiTNode* Node = BDeque.front(); //队列头结点
 		DisplayNode(Node);
@@ -117,11 +117,6 @@ void DequeTraverse(BiTree& Tree)
 		if (Node->rchild)
 		{
 			BDeque.emplace_back(Node->rchild);//右孩子入队
-		}
-
-		if (BDeque.empty()) //队列为空
-		{
-			break;
 		}
 	}
 }
