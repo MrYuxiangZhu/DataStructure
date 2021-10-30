@@ -3,8 +3,50 @@
 
 using namespace std;
 
-//O(n)
+//O(1)
 LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
+{
+	LinkedListNode* header = nullptr;
+
+	if (nullptr == slist)
+	{
+		header = (LinkedListNode*)malloc(sizeof(LinkedListNode));
+		if (nullptr == header)
+		{
+			cout << "创建链表头失败" << endl;
+			return nullptr;
+		}
+		else
+		{
+			header->data = elem;
+			header->pre = nullptr;
+			header->next = nullptr;
+			return header;
+		}
+	}
+	else
+	{
+		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
+		if (nullptr == node)
+		{
+			cout << "创建结点失败" << endl;
+			return nullptr;
+		}
+		else
+		{
+			LinkedListNode* clist = slist;
+
+			node->data = elem;
+			node->next = clist;
+			clist->pre = node;
+			header = node;
+			return header;
+		}
+	}
+}
+
+//O(n)
+LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
 {
 	if (nullptr == slist)
 	{
@@ -41,48 +83,6 @@ LinkedList LinkedListCreateByHeader(LinkedList slist, ElemType elem)
 			node->pre = clist;
 			node->next = nullptr;
 			clist->next = node;
-			return header;
-		}
-	}
-}
-
-//O(1)
-LinkedList LinkedListCreateByTail(LinkedList slist, ElemType elem)
-{
-	LinkedListNode* header = nullptr;
-
-	if (nullptr == slist)
-	{
-		header = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-		if (nullptr == header)
-		{
-			cout << "创建链表头失败" << endl;
-			return nullptr;
-		}
-		else
-		{
-			header->data = elem;
-			header->pre = nullptr;
-			header->next = nullptr;
-			return header;
-		}
-	}
-	else
-	{
-		LinkedListNode* node = (LinkedListNode*)malloc(sizeof(LinkedListNode));
-		if (nullptr == node)
-		{
-			cout << "创建结点失败" << endl;
-			return nullptr;
-		}
-		else
-		{
-			LinkedListNode* clist = slist;
-
-			node->data = elem;
-			node->next = clist;
-			clist->pre = node;
-			header = node;
 			return header;
 		}
 	}
@@ -167,7 +167,7 @@ LinkedList GetLinkedList(LinkedList slist, int pos)
 		
 		if (index < pos)
 		{
-			cout << "插入位置 " << pos << " 超出链表长度" << index << " ，默认输出尾结点" << endl;
+			cout << "寻找位置 " << pos << " 超出链表长度" << index << " ，默认输出尾结点" << endl;
 		}
 
 		return clist;
@@ -210,7 +210,7 @@ LinkedList LinkedListDelete(LinkedList slist, int pos)
 			}
 			else
 			{
-				cout << "查找位置 " << pos << " 超出链表最大长度 " << index << endl;
+				cout << "删除位置 " << pos << " 超出链表最大长度 " << index << endl;
 			}
 
 			return slist;

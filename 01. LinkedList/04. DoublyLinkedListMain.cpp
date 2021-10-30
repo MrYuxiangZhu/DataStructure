@@ -12,7 +12,7 @@ int main()
 	LinkedList slist2 = nullptr;
 	int array[5] = { 1, 2, 3, 4, 5 };
 
-	cout << "头差法" << endl;
+	cout << "头插法" << endl;
 	slist1 = LinkedListCreateByHeader(slist1, array[0]);
 	slist1 = LinkedListCreateByHeader(slist1, array[1]);
 	slist1 = LinkedListCreateByHeader(slist1, array[2]);
