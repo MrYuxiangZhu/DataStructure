@@ -1,4 +1,4 @@
-﻿// 二叉树先序非递归遍历.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
+﻿// 二叉树后序非递归遍历.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
 #include <iostream>
@@ -63,49 +63,36 @@ void DisplayElem(BiTNode* elem)
 	std::cout << elem->data << " ";
 }
 
-/*先序遍历*/
-void PreOrderTraverse(BiTree T)
+/*后序遍历*/
+void ProOrderTraverse(BiTree T)
 {
-	BiTNode* top = T;
 	std::stack<BiTNode*> sta;
+	BiTNode* top = T;
+	BiTNode* vis = nullptr;/*临时变量，记录上一个访问到的结点，因为从右边访问根结点，
+						   必定是右子树已经遍历结束，此时上一个访问的结点必定是右子树的根结点*/
 	while (top || !sta.empty())
 	{
 		if (top)
 		{
-			DisplayElem(top);
-
-			if (top->rchild)
-			{
-				sta.push(top->rchild);
-			}
+			sta.push(top);
 			top = top->lchild;
 		}
 		else
 		{
-			top = sta.top();
-			sta.pop();
-		}
-	}
-}
-
-/*先序遍历*/
-void PreOrderTraverse1(BiTree T)
-{
-	std::stack<BiTNode*> sta;
-	sta.push(T);
-	while (!sta.empty())
-	{
-		BiTNode* top = sta.top();
-		sta.pop();
-		while (top)
-		{
-			DisplayElem(top);
-			if (top->rchild)
+			top = sta.top();//只读取根结点，不对栈内结点进行操作
+			if (top->rchild && top->rchild != vis)//没有对右子树进行操作过
 			{
-				sta.push(top->rchild);
+				top = top->rchild;
+				sta.push(top);
+				top = top->lchild;
 			}
-
-			top = top->lchild;
+			else
+			{
+				sta.pop();
+				DisplayElem(top);//对top进行访问，可以进行打印等操作
+				vis = top;//记录当前访问的是p结点
+				top = nullptr;//把p置空，进入下一次循环，直到栈内无元素，且p为空时遍历完成
+			}
 		}
 	}
 }
@@ -114,11 +101,8 @@ int main()
 {
 	BiTree Tree;
 	CreateBiTree(&Tree);
-	std::cout << "先序遍历" << std::endl;
-	PreOrderTraverse(Tree);
+	std::cout << "后序遍历" << std::endl;
+	ProOrderTraverse(Tree);
 	std::cout << std::endl;
-	PreOrderTraverse1(Tree);
-	std::cout << std::endl;
-
 	return 0;
 }
