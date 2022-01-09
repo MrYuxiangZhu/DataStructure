@@ -88,7 +88,7 @@ void LevelOrder(RBTree root)
 	}
 }
 
-RBNode* FindMax(RBTree root)
+_NODISCARD RBNode* FindMax(RBTree root)
 {
 	RBNode* node = root;
 	while (NULL != node->rchild)
@@ -99,7 +99,7 @@ RBNode* FindMax(RBTree root)
 	return node;
 }
 
-RBNode* FindMin(RBTree root)
+_NODISCARD RBNode* FindMin(RBTree root)
 {
 	RBNode* node = root;
 	while (NULL != node->lchild)
@@ -110,7 +110,7 @@ RBNode* FindMin(RBTree root)
 	return node;
 }
 
-RBNode* RBTreeSearch(RBTree root, ElemType data)
+_NODISCARD RBNode* RBTreeSearch(RBTree root, ElemType data)
 {
 	if (NULL == root || root->data == data)
 	{
