@@ -1,7 +1,4 @@
-﻿// 平衡二叉树.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
-#include <iostream>
+﻿#include <iostream>
 
 typedef struct _AVLNode
 {
@@ -218,43 +215,4 @@ AVLTree Delete(AVLTree Tree, int key)
     }
 
     return Tree;
-}
-
-/*前序遍历*/
-void PreOrderTraverse(AVLTree Tree)
-{
-    if (Tree)
-    {
-        std::cout << Tree->data << " ";
-        PreOrderTraverse(Tree->lchild);
-        PreOrderTraverse(Tree->rchild);
-    }
-}
-
-int main()
-{
-    AVLTree Tree = NULL;
-
-    Tree = Insert(Tree, 9);
-    Tree = Insert(Tree, 5);
-    Tree = Insert(Tree, 10);
-    Tree = Insert(Tree, 3);
-    Tree = Insert(Tree, 6);
-    Tree = Insert(Tree, 11);
-    Tree = Insert(Tree, 1);
-    Tree = Insert(Tree, 2);
-    Tree = Insert(Tree, 4);
-    Tree = Insert(Tree, 12);
-    Tree = Insert(Tree, 13);
-
-    std::cout << "前序遍历" << std::endl;
-    PreOrderTraverse(Tree);
-    std::cout << std::endl;
-
-    Tree = Delete(Tree, 10);
-
-    std::cout << "前序遍历" << std::endl;
-    PreOrderTraverse(Tree);
-    std::cout << std::endl;
-    return 0;
 }
